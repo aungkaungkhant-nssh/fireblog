@@ -66,7 +66,7 @@ export default {
         })
         let checkScreen=()=>{
             mobileWidth.value=window.innerWidth;
-            if(mobileWidth.value<=700){
+            if(mobileWidth.value<=768){
                mobile.value=true;
                  open.value=true;
                  
@@ -118,7 +118,7 @@ nav .menu{
     left:0;
     background-color: #2d3436;
     height: 100vh;
-    width: 200px;
+    width: 250px;
     z-index: 1000;
     padding: 30px 20px;
 }

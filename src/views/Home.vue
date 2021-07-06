@@ -13,3 +13,8 @@ export default {
   
 }
 </script>
+<style scoped>
+.home{
+  height: 80vh;
+}
+</style>

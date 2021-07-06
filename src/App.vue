@@ -1,12 +1,15 @@
 <template>
   <Navigation></Navigation>
   <router-view/>
+  <Footer></Footer>
 </template>
 
 <script>
+import Footer from './components/Footer'
 import Navigation from './components/Navigation'
 export default {
-  components: { Navigation },
+  components: {
+    Footer, Navigation },
 
 }
 </script>
