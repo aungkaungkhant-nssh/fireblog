@@ -59,6 +59,7 @@ footer{
     background-color: #303030;
     color:#fff;
     padding: 50px 0px;
+    margin-top: 1000px;
 }
 .icon-container span{
    margin: 20px 20px 0px 0px;
