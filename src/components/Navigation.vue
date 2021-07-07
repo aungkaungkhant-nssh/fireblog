@@ -8,10 +8,10 @@
                 <div v-if="!mobile">
                     <ul class="nav">
                             <li class="nav-item">
-                                <a class="nav-link h5 text-dark"  href="#">HOME</a>
+                               <router-link class="nav-link h5 text-dark" :to="{name:'Home'}">Home</router-link>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link h5 text-dark" href="#">BLOGS</a>
+                                <router-link class="nav-link h5 text-dark" :to="{name:'Blog'}">BLOGS</router-link>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link h5 text-dark" href="#">CREATE BLOGS</a>
@@ -34,10 +34,10 @@
       <nav  v-if="mobileNav">
         <ul class="nav">
             <li class="nav-item">
-                <a class="nav-link h5 text-white"  href="#">HOME</a>
+                <router-link class="nav-link h5 text-white" :to="{name:'Home'}">Home</router-link>
             </li>
             <li class="nav-item">
-                <a class="nav-link h5 text-white" href="#">BLOGS</a>
+                 <router-link class="nav-link h5 text-white" :to="{name:'Blog'}">Blog</router-link>
             </li>
             <li class="nav-item">
                 <a class="nav-link h5 text-white" href="#">CREATE BLOG</a>
