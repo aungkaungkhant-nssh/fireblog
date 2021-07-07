@@ -7,8 +7,8 @@
                         </div> 
                         <div class=" col-md-12 intro col-lg-5">
                             <div class="mb-3">
-                                <h1>Welcome!</h1>
-                                <p>Weekly blog articles with all things programming including HTML, CSS, JavaScript and more. Register today to never miss a post</p>
+                                <h1>VueJs!</h1>
+                                <p>Vue (pronounced /vjuː/, like view) is a progressive framework for building user interfaces. Unlike other monolithic frameworks, Vue is designed from the ground up to be incrementally adoptable. </p>
                             </div>
                            <a href="#" class="go">Login/Register</a>
                                 <span class="material-icons arrow">

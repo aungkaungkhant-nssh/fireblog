@@ -2,15 +2,15 @@
   <Navigation></Navigation>
   <router-view/>
     
-  <!-- <Footer></Footer> -->
+  <Footer></Footer>
 </template>
 
 <script>
-// import Footer from './components/Footer'
+import Footer from './components/Footer'
 import Navigation from './components/Navigation'
 export default {
   components: {
-    Navigation },
+    Navigation,Footer },
 
 }
 </script>
@@ -55,6 +55,8 @@ export default {
 #app{
   font-family: 'Poppins', sans-serif;
 }
-
+a{
+  text-decoration: none;
+}
 
 </style>
