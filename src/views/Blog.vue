@@ -2,6 +2,7 @@
   <div class="container-fluid blog-card pt-5 pb-5">
     <div class="container">
         <div class="row">
+          <ToggleButton></ToggleButton>
           <div class="col-xl-3 col-md-6 col-lg-4">
               <div class="card mb-3">
                 <img src="../assets/media.png" alt="" style="height:200px">
@@ -73,14 +74,27 @@
 </template>
 
 <script>
+import ToggleButton from '../components/ToggleButton'
+import { ref } from '@vue/reactivity'
 
 export default {
+  components: { ToggleButton },
     name: 'Blog',
  setup(){
+   let check=ref(false);
+   return {check}
  }
 }
 </script>
 
 <style>
-
+.fake{
+  width: 100%;
+  /* background-color: red; */
+}
+.toggle{
+  color:#8395a7;
+  font-size: 25px;
+  cursor: pointer;
+}
 </style>
