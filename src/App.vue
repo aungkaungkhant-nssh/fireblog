@@ -1,17 +1,31 @@
 <template>
-  <Navigation></Navigation>
+  <Navigation  v-if="nav"></Navigation>
   <router-view/>
     
-  <Footer></Footer>
+  <Footer v-if="nav"></Footer>
 </template>
 
 <script>
 import Footer from './components/Footer'
 import Navigation from './components/Navigation'
+import {useRoute} from 'vue-router'
+import { computed, onMounted, onUpdated, ref, watch } from '@vue/runtime-core'
 export default {
   components: {
     Navigation,Footer },
-
+    setup(){
+      let route=useRoute();
+      let nav=computed(()=>{
+        if(route.path==="/register"){
+          return false;
+        }else{
+          return true;
+        }
+      })     
+      return{nav};  
+    }
+ 
+ 
 }
 </script>
 

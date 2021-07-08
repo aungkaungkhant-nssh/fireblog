@@ -17,8 +17,8 @@
                                 <a class="nav-link h5 text-dark" href="#">CREATE BLOGS</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link h5 text-dark" href="#">LOGIN/REGISTER</a>
-                            </li>
+                                 <router-link class="nav-link h5 text-dark" :to="{name:'Register'}" >Login/Register</router-link>
+                             </li>
                     </ul>
                 </div>
                 <span class="material-icons  md-24 menu " v-if="open" @click="toggleMenu">
@@ -43,7 +43,7 @@
                 <a class="nav-link h5 text-white" href="#">CREATE BLOG</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link h5 text-white" href="#">LOING/REGISTER</a>
+                 <router-link class="nav-link h5 text-white" :to="{name:'Register'}"  @click="toggleNav">Login Register</router-link>
             </li>
         </ul>
         </nav>
@@ -53,8 +53,10 @@
 
 <script>
 import { onMounted, ref } from '@vue/runtime-core'
+import {useRoute} from 'vue-router'
 export default {
-    setup(){
+    setup(props,context){
+  
         let mobileWidth=ref(null)
         let mobileNav=ref(null);
         let mobile=ref(null);
@@ -87,6 +89,7 @@ export default {
             open.value=true;
             close.value=false;
         }
+        
         return{mobile,mobileNav,toggleMenu,close,open,closeMenu}
     }
 }
