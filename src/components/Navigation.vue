@@ -17,7 +17,7 @@
                                 <a class="nav-link h5 text-dark" href="#">CREATE BLOGS</a>
                             </li>
                             <li class="nav-item">
-                                 <router-link class="nav-link h5 text-dark" :to="{name:'Register'}" >Login/Register</router-link>
+                                 <router-link class="nav-link h5 text-dark" :to="{name:'Login'}" >Login/Register</router-link>
                              </li>
                     </ul>
                 </div>
@@ -43,7 +43,7 @@
                 <a class="nav-link h5 text-white" href="#">CREATE BLOG</a>
             </li>
             <li class="nav-item">
-                 <router-link class="nav-link h5 text-white" :to="{name:'Register'}"  @click="toggleNav">Login Register</router-link>
+                 <router-link class="nav-link h5 text-white" :to="{name:'Login'}"  >Login Register</router-link>
             </li>
         </ul>
         </nav>

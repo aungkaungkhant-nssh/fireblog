@@ -16,7 +16,7 @@ export default {
     setup(){
       let route=useRoute();
       let nav=computed(()=>{
-        if(route.path==="/register"){
+        if(route.path==="/login"){
           return false;
         }else{
           return true;
