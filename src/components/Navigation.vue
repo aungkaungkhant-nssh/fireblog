@@ -19,6 +19,9 @@
                             <li class="nav-item">
                                  <router-link class="nav-link h5 text-dark" :to="{name:'LoginAndRegister'}" >Login/Register</router-link>
                              </li>
+                             <li class="nav-item">
+                                <h5 class="nav-link" @click="logout">Logout</h5>
+                             </li>
                     </ul>
                 </div>
                 <span class="material-icons  md-24 menu " v-if="open" @click="toggleMenu">
@@ -45,6 +48,9 @@
             <li class="nav-item">
                  <router-link class="nav-link h5 text-white" :to="{name:'LoginAndRegister'}"  >Login Register</router-link>
             </li>
+            <li class="nav-item">
+                <h5 class="nav-link">Logout</h5>
+             </li>
         </ul>
         </nav>
   </transition>
@@ -54,6 +60,7 @@
 <script>
 import { onMounted, ref } from '@vue/runtime-core'
 import {useRoute} from 'vue-router'
+import { auth } from '../firebase/config'
 export default {
     setup(props,context){
   
@@ -62,6 +69,7 @@ export default {
         let mobile=ref(null);
         let close=ref(null);
         let open=ref(null);
+        let error=ref(null)
         onMounted(()=>{
           window.addEventListener("resize",checkScreen);
           checkScreen()
@@ -89,8 +97,17 @@ export default {
             open.value=true;
             close.value=false;
         }
+        let logout=async()=>{
+           try{
+               let res=await auth.signOut();
+                console.log("user signout")
+           }catch(err){
+               error.value=err.message;
+               console.log(err.value)
+           }
+        }
         
-        return{mobile,mobileNav,toggleMenu,close,open,closeMenu}
+        return{mobile,mobileNav,toggleMenu,close,open,closeMenu,logout}
     }
 }
 </script>
@@ -98,6 +115,18 @@ export default {
 <style>
 .desktop{
     box-shadow: 0 0 10px 1px rgba(0,0,0,0.1);
+}
+.desktop h5{
+    color:#000;
+    cursor: pointer;
+    transition: all 0.5s;
+}
+.desktop h5:hover{
+      transform: translateY(-3px);
+      color:#000;
+}
+.mobile-nav h5{
+    color:#fff;
 }
 nav h1{
     font-weight: 500;
