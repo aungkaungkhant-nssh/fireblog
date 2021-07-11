@@ -16,10 +16,10 @@
                             <li class="nav-item">
                                 <a class="nav-link h5 text-dark" href="#">CREATE BLOGS</a>
                             </li>
-                            <li class="nav-item">
+                            <li class="nav-item" v-if="!user">
                                  <router-link class="nav-link h5 text-dark" :to="{name:'LoginAndRegister'}" >Login/Register</router-link>
                              </li>
-                             <li class="nav-item">
+                             <li class="nav-item" v-if="user">
                                 <h5 class="nav-link" @click="logout">Logout</h5>
                              </li>
                     </ul>
@@ -31,6 +31,7 @@
                     close
                 </span>
             </div>
+           
       </div>
   </nav>
   <transition name="fade" class="mobile-nav">
@@ -45,10 +46,10 @@
             <li class="nav-item">
                 <a class="nav-link h5 text-white" href="#">CREATE BLOG</a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item" v-if="!user">
                  <router-link class="nav-link h5 text-white" :to="{name:'LoginAndRegister'}"  >Login Register</router-link>
             </li>
-            <li class="nav-item">
+            <li class="nav-item" v-if="user">
                 <h5 class="nav-link">Logout</h5>
              </li>
         </ul>
@@ -59,8 +60,8 @@
 
 <script>
 import { onMounted, ref } from '@vue/runtime-core'
-import {useRoute} from 'vue-router'
 import { auth } from '../firebase/config'
+import getUser from '../composable/getUser'
 export default {
     setup(props,context){
   
@@ -69,10 +70,12 @@ export default {
         let mobile=ref(null);
         let close=ref(null);
         let open=ref(null);
-        let error=ref(null)
+        let error=ref(null);
+        let {user}=getUser();
         onMounted(()=>{
           window.addEventListener("resize",checkScreen);
           checkScreen()
+         
         })
         let checkScreen=()=>{
             mobileWidth.value=window.innerWidth;
@@ -99,7 +102,7 @@ export default {
         }
         let logout=async()=>{
            try{
-               let res=await auth.signOut();
+               await auth.signOut();
                 console.log("user signout")
            }catch(err){
                error.value=err.message;
@@ -107,7 +110,7 @@ export default {
            }
         }
         
-        return{mobile,mobileNav,toggleMenu,close,open,closeMenu,logout}
+        return{mobile,mobileNav,toggleMenu,close,open,closeMenu,logout,user}
     }
 }
 </script>
