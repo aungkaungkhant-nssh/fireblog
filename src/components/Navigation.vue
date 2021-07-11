@@ -13,8 +13,8 @@
                             <li class="nav-item">
                                 <router-link class="nav-link h5 text-dark" :to="{name:'Blog'}">BLOGS</router-link>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link h5 text-dark" href="#">CREATE BLOGS</a>
+                            <li class="nav-item" v-if="user && user.email==='akk1223@gmail.com'">
+                                <router-link class="nav-link h5 text-dark" :to="{name:'Home'}">Create Blogs</router-link>
                             </li>
                             <li class="nav-item" v-if="!user">
                                  <router-link class="nav-link h5 text-dark" :to="{name:'LoginAndRegister'}" >Login/Register</router-link>
@@ -31,7 +31,7 @@
                     close
                 </span>
             </div>
-           
+               
       </div>
   </nav>
   <transition name="fade" class="mobile-nav">
@@ -43,8 +43,8 @@
             <li class="nav-item">
                  <router-link class="nav-link h5 text-white" :to="{name:'Blog'}">Blog</router-link>
             </li>
-            <li class="nav-item">
-                <a class="nav-link h5 text-white" href="#">CREATE BLOG</a>
+            <li class="nav-item" v-if="user && user.email==='akk1223@gmail.com'">
+                    <router-link class="nav-link h5 text-white" :to="{name:'Home'}">Create Blogs</router-link>
             </li>
             <li class="nav-item" v-if="!user">
                  <router-link class="nav-link h5 text-white" :to="{name:'LoginAndRegister'}"  >Login Register</router-link>
@@ -52,6 +52,7 @@
             <li class="nav-item" v-if="user">
                 <h5 class="nav-link">Logout</h5>
              </li>
+         
         </ul>
         </nav>
   </transition>
@@ -109,6 +110,7 @@ export default {
                console.log(err.value)
            }
         }
+
         
         return{mobile,mobileNav,toggleMenu,close,open,closeMenu,logout,user}
     }
