@@ -7,7 +7,8 @@
                                 <h1>Welcome!</h1>
                                 <p>Weekly blog articles with all things programming including HTML, CSS, JavaScript and more. Register today to never miss a post</p>
                             </div>
-                           <a href="#" class="go">Login/Register</a>
+                            <router-link class="go" :to="{name:'LoginAndRegister'}">Login/Register</router-link>
+                          
                                 <span class="material-icons arrow">
                                     east
                             </span>

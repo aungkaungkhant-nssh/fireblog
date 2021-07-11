@@ -38,10 +38,12 @@
 import { ref } from '@vue/reactivity';
 import store from '../composable/store'
 import signUp from '../composable/signUp'
+import {useRouter} from "vue-router"
 export default {
   setup(props,context){
     let {error,createAccount}=signUp();
     let {storeError,storeData}=store();
+    let router=useRouter();
     let first=ref("");
     let last=ref("");
     let name=ref("")
@@ -61,6 +63,7 @@ export default {
         last.value="";
         email.value="";
         password.value="";
+        loginShow();
       }
     }
     let loginShow=()=>{

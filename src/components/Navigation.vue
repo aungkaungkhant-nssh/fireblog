@@ -50,7 +50,7 @@
                  <router-link class="nav-link h5 text-white" :to="{name:'LoginAndRegister'}"  >Login Register</router-link>
             </li>
             <li class="nav-item" v-if="user">
-                <h5 class="nav-link">Logout</h5>
+                <h5 class="nav-link" @click="logout">Logout</h5>
              </li>
          
         </ul>

@@ -10,10 +10,7 @@
                                 <h1>VueJs!</h1>
                                 <p>Vue (pronounced /vjuː/, like view) is a progressive framework for building user interfaces. Unlike other monolithic frameworks, Vue is designed from the ground up to be incrementally adoptable. </p>
                             </div>
-                           <a href="#" class="go">Login/Register</a>
-                                <span class="material-icons arrow">
-                                    east
-                            </span>
+                          
                         </div> 
                        
                   </div>
@@ -25,10 +22,7 @@
                                 <h1>Css!</h1>
                                 <p>CSS stands for Cascading Style Sheets · CSS describes how HTML elements are to be displayed on screen, paper, or in other media </p>
                             </div>
-                           <a href="#" class="go">Login/Register</a>
-                                <span class="material-icons arrow">
-                                    east
-                            </span>
+                         
                         </div> 
                        <div class="col-md-12 col-lg-7">
                             <img src="../assets/css.jpeg" alt="" style="width:100% ; height:100%">
