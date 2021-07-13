@@ -5,7 +5,7 @@
                 <div class="">
                     <h1 class="text-secondary" style="cursor:pointer">FireBlogs</h1>
                 </div>
-                <div v-if="!mobile">
+                <div v-if="!mobile" class="d-flex align-items-center justify-content-between">
                     <ul class="nav">
                             <li class="nav-item">
                                <router-link class="nav-link h5 text-dark" :to="{name:'Home'}">Home</router-link>
@@ -19,10 +19,10 @@
                             <li class="nav-item" v-if="!user">
                                  <router-link class="nav-link h5 text-dark" :to="{name:'LoginAndRegister'}" >Login/Register</router-link>
                              </li>
-                             <li class="nav-item" v-if="user">
-                                <h5 class="nav-link" @click="logout">Logout</h5>
-                             </li>
+                                <!-- <h5 class="nav-link" @click="logout">Logout</h5> -->
+                             
                     </ul>
+                     <Pflog :user="user"  v-if="user" class="profile"></Pflog>
                 </div>
                 <span class="material-icons  md-24 menu " v-if="open" @click="toggleMenu">
                     menu
@@ -60,23 +60,26 @@
 </template>
 
 <script>
+import Pflog from './Pflog'
 import { onMounted, ref } from '@vue/runtime-core'
 import { auth } from '../firebase/config'
 import getUser from '../composable/getUser'
+import userCollection from "../composable/userCollection"
 export default {
+  components: { Pflog },
     setup(props,context){
-  
+         let {error,usersData,load}=userCollection();
         let mobileWidth=ref(null)
         let mobileNav=ref(null);
         let mobile=ref(null);
         let close=ref(null);
         let open=ref(null);
-        let error=ref(null);
+        // let error=ref(null);
         let {user}=getUser();
-        onMounted(()=>{
+        onMounted(async()=>{
           window.addEventListener("resize",checkScreen);
           checkScreen()
-         
+          await load();       
         })
         let checkScreen=()=>{
             mobileWidth.value=window.innerWidth;
@@ -110,9 +113,9 @@ export default {
                console.log(err.value)
            }
         }
-
         
-        return{mobile,mobileNav,toggleMenu,close,open,closeMenu,logout,user}
+        
+        return{mobile,mobileNav,toggleMenu,close,open,closeMenu,logout,user,usersData}
     }
 }
 </script>
@@ -171,5 +174,8 @@ nav .menu{
 .fade-enter-from,
 .fade-leave-to {
     opacity: 0;
+}
+.profile{
+    position: relative;
 }
 </style>
