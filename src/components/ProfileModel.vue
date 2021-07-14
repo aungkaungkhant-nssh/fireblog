@@ -13,7 +13,7 @@
         <span class="material-icons">
                 person
         </span>
-        <h6 class="mt-2">Profile</h6>
+        <h6 class="mt-2" @click="gotoProfile">Profile</h6>
         
      </div>
      <div class="d-flex align-items-center justify-content-between" style="width:90px;cursor:pointer">
@@ -27,9 +27,11 @@
 
 <script>
 import { auth } from '../firebase/config';
+import {useRouter} from 'vue-router'
 export default {
     props:["first","last","user"],
-    setup(){
+    setup(props,context){
+        let router=useRouter();
          let logout=async()=>{
            try{
                await auth.signOut();
@@ -39,7 +41,11 @@ export default {
                console.log(err.value)
            }
         }
-        return{logout}
+        let gotoProfile=()=>{
+                router.push("/profile");
+                context.emit("hideProfile");
+        }
+        return{logout,gotoProfile}
     }
 }
 </script>

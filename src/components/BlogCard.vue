@@ -55,7 +55,7 @@ export default {
   transition: all 0.5s;
   height: 470px;
 }
-.card:hover{
+.blog-card .card:hover{
  transform: skewY(-1deg);
 }
 .blog-card{

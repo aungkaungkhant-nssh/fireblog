@@ -3,7 +3,7 @@
       <h4>{{first}}{{last}}</h4>
   </div>
   <div class="alert" v-if="showProfile">
-      <ProfileModel :first="first" :last="last" :user="user"></ProfileModel>
+      <ProfileModel :first="first" :last="last" :user="user" @hideProfile="hideProfile"></ProfileModel>
   </div>
 </template>
 
@@ -29,7 +29,10 @@ export default {
            first.value=name.value.substring(0,1).toUpperCase()
            last.value=name.value.substring(name.value.length-1).toUpperCase()
         })
-        return{first,last,showProfile,profileModelShow}
+        let hideProfile=()=>{
+            showProfile.value=false;
+        }
+        return{first,last,showProfile,profileModelShow,hideProfile}
     }
 }
 </script>
@@ -57,6 +60,7 @@ export default {
     background-color: #95a5a6;
     width: 350px;
     height: 190px;
+    z-index: 1000;
 }
 
 </style>
