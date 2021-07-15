@@ -3,6 +3,8 @@ import Home from '../views/Home.vue'
 import Blog from '../views/Blog.vue'
 import LoginAndRegister from '../views/LoginAndRegister.vue'
 import Profile from '../views/Profile.vue'
+import ResetPassword from '../views/ResetPassword'
+import CreateBlog from '../views/CreateBlog'
 const routes = [
   {
     path: '/',
@@ -23,6 +25,16 @@ const routes = [
     path:"/profile",
     name:'Profile',
     component:Profile
+  },
+  {
+    path:'/resetpassword',
+    name:"ResetPassword",
+    component:ResetPassword
+  },
+  {
+    path:'/createblog',
+    name:"CreateBlog",
+    component:CreateBlog
   }
 ]
 

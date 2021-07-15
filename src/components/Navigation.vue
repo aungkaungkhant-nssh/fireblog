@@ -14,7 +14,7 @@
                                 <router-link class="nav-link h5 text-dark" :to="{name:'Blog'}">BLOGS</router-link>
                             </li>
                             <li class="nav-item" v-if="user && user.email==='akk1223@gmail.com'">
-                                <router-link class="nav-link h5 text-dark" :to="{name:'Home'}">Create Blogs</router-link>
+                                <router-link class="nav-link h5 text-dark" :to="{name:'CreateBlog'}">Create Blogs</router-link>
                             </li>
                             <li class="nav-item" v-if="!user">
                                  <router-link class="nav-link h5 text-dark" :to="{name:'LoginAndRegister'}" >Login/Register</router-link>

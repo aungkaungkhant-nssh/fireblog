@@ -13,10 +13,10 @@ import { computed, onMounted, onUpdated, ref, watch } from '@vue/runtime-core'
 export default {
   components: {
     Navigation,Footer },
-    setup(){
+  setup(){
       let route=useRoute();
       let nav=computed(()=>{
-        if(route.path==="/loginAndregister" ){
+        if(route.path==="/loginAndregister" || route.path==="/resetpassword"){
           return false;
         }else{
           return true;

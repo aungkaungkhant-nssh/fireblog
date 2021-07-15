@@ -1,5 +1,5 @@
 <template>
-    <section class="container profile" style="padding:100px 10px" v-if="usersData">
+    <section class="container profile" style="padding:100px 10px">
         <div class="row">
             <div class="col-md-6 offset-md-3">
                   <div class="card">
@@ -10,25 +10,22 @@
                           <div class="pf mb-4">
                                 <h4>{{first}}{{last}}</h4>
                           </div>
-                          <form action="">
+                          <form >
                               <div class="form-group mb-3">
                                   <label for="" class="mb-2">First Name</label>
-                                  <input type="text" class="form-control" v-model="firstName">
+                                  <input type="text" class="form-control" v-model="firstName" disabled>
                               </div>
                               <div class="form-group mb-3">
                                   <label for="" class="mb-2">Last Name</label>
-                                  <input type="text" class="form-control" v-model="lastName">
+                                  <input type="text" class="form-control" v-model="lastName" disabled>
                               </div>
                               <div class="form-group mb-3">
                                   <label for="" class="mb-2">UserName</label>
-                                  <input type="text" class="form-control" v-model="name">
+                                  <input type="text" class="form-control" v-model="name"  disabled>
                               </div>
                               <div class="form-group mb-4">
                                   <label for="" class="mb-2">Email</label>
-                                  <input type="email" class="form-control" v-model="email">
-                              </div>
-                              <div class="save mt-3">
-                                   <input type="submit" value="Save Change" class="btn btn-primary ">
+                                  <input type="email" class="form-control" v-model="email"  disabled>
                               </div>
                              
                           </form>
@@ -69,12 +66,12 @@ export default {
            last.value=name.value.substring(name.value.length-1).toUpperCase()
         })
       
-        return{first,last,name,email,firstName,lastName,usersData}
+        return{first,last,name,email,firstName,lastName}
     }
 }
 </script>
 
-<style>
+<style scoped>
 .profile .pf h4{
     color:#ffff;
 }

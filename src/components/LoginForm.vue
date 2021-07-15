@@ -17,7 +17,7 @@
           Don't have an account? 
           <span @click="registerShow">Register</span>
         </h5>
-         <router-link to="#" id="signup" style="color:#34495e;font-size:18px;" >Forgot Password</router-link>
+         <router-link :to="{name:'ResetPassword'}" id="signup" style="color:#34495e;font-size:18px;" >Forgot Password</router-link>
          <div class="mt-3">
             <input type="submit" class="btn btn-dark" value="Login">
           </div>
