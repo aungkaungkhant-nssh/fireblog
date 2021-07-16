@@ -161,12 +161,13 @@ nav .menu{
     width: 250px;
     z-index: 1000;
     padding: 30px 20px;
+    
 }
 .mobile-nav li{
     margin-top: 20px;
   
 }
-.fade-enter-active,
+/* .fade-enter-active,
 .fade-leave-active {
   transition:all 1s ease;
 }
@@ -174,7 +175,7 @@ nav .menu{
 .fade-enter-from,
 .fade-leave-to {
     opacity: 0;
-}
+} */
 .profile{
     position: relative;
 }

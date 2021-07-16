@@ -5,6 +5,7 @@ import LoginAndRegister from '../views/LoginAndRegister.vue'
 import Profile from '../views/Profile.vue'
 import ResetPassword from '../views/ResetPassword'
 import CreateBlog from '../views/CreateBlog'
+
 const routes = [
   {
     path: '/',
