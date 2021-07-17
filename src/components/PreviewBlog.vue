@@ -7,10 +7,11 @@
                     <span class="material-icons close" @click="hidePreviewBlog">
                         close
                     </span>
-                     <img :src="url" alt=""  style="height:200px" class="p-3">
-                    <div class="card-body">
-                      <h4 class="mb-4">{{title}}</h4>
-                      <p>{{content}}</p>
+                     <img :src="url" alt=""  style="" class="p-3">
+                    <div class="card-body preview-blog-content">
+                      <h4 class="mb-3">{{title}}</h4>
+                      <div v-html="content">
+                      </div>
                     </div>
                 </div>
           </div>  
@@ -53,5 +54,8 @@ export default {
   background-color: #dcdde1;
   border-radius: 50px;
   padding: 5px 7px;
+}
+.preview-blog-content{
+  overflow-y:scroll ;
 }
 </style>

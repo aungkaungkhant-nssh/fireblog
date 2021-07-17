@@ -11,9 +11,27 @@
                     <input type="file"  id="actual-btn" hidden @change="uploadImage" >
                 </div>
                  <div class="col-md-12 mb-3 col-lg-12 col-xl-12">
-                      <img :src="url" alt="" v-if="url" style="width:120px;height:150px">
+                      <img :src="url" alt="" v-if="url" style="width:100px;height:150px">
                 </div>
-                <textarea name="" id="" cols="30" rows="10" v-model="content"></textarea>
+               
+            <editor
+                    initialValue="<p>Initial editor content</p>"
+                    :init="{
+                    height: 300,
+                    menubar: false,
+                    plugins: [
+                        'advlist autolink lists link image charmap',
+                        'searchreplace visualblocks code fullscreen',
+                        'print preview anchor insertdatetime media',
+                        'paste code help wordcount table'
+                    ],
+                    toolbar:
+                        'undo redo | formatselect | bold italic | \
+                        alignleft aligncenter alignright | \
+                        bullist numlist outdent indent | help'
+                    }"
+                    v-model="content" >
+                </editor>
                 <input type="submit" class="btn btn-primary mt-4" value="Upload Blog">
             </form>
             <button @click="showPreviewBlog" class="btn btn-dark mt-4" :disabled="buttonPlay">
@@ -31,13 +49,14 @@
 
 import PreviewBlog from '../components/PreviewBlog'
 import RegisterForm from '../components/RegisterForm'
-
+ import Editor from '@tinymce/tinymce-vue'
 import { ref } from '@vue/reactivity'
 import { computed } from '@vue/runtime-core'
 export default {
      components: {
     PreviewBlog,
-    RegisterForm
+    RegisterForm,
+    editor: Editor
   },
   setup(){
       let title=ref("");
