@@ -1,7 +1,7 @@
 <template>
   <div class="container createblog">
         <div v-if="create">
-           <form class="row ">
+           <form class="row" @submit.prevent="uploadBlog">
                 <div class="col-md-12 col-lg-12 col-xl-3">
                     <input type="text" class="title-input" placeholder="Enter Blog Title" v-model="title">
                 </div>
@@ -11,10 +11,9 @@
                     <input type="file"  id="actual-btn" hidden @change="uploadImage" >
                 </div>
                  <div class="col-md-12 mb-3 col-lg-12 col-xl-12">
-                      <img :src="url" alt="" v-if="url" style="width:100px;height:150px">
+                      <img :src="url" alt="" v-if="url" style="width:160px;height:150px">
                 </div>
-               
-            <editor
+                <editor
                     initialValue="<p>Initial editor content</p>"
                     :init="{
                     height: 300,
@@ -33,13 +32,13 @@
                     v-model="content" >
                 </editor>
                 <input type="submit" class="btn btn-primary mt-4" value="Upload Blog">
-            </form>
-            <button @click="showPreviewBlog" class="btn btn-dark mt-4" :disabled="buttonPlay">
+            </form>  
+             <button @click="showPreviewBlog" class="btn btn-dark mt-4" :disabled="buttonPlay" >
                 PreviewBlog
-                </button>
-                
+             </button>
         </div>
         <PreviewBlog v-if="!create" :title="title" :content="content" :url="url" @hidePreview="hidePreviewBlog"></PreviewBlog>
+     
   </div>
   
 </template>
@@ -52,6 +51,9 @@ import RegisterForm from '../components/RegisterForm'
  import Editor from '@tinymce/tinymce-vue'
 import { ref } from '@vue/reactivity'
 import { computed } from '@vue/runtime-core'
+import { storage, timestamp } from '../firebase/config'
+import store from '../composable/store'
+import fileStorage from '../composable/fileStorage'
 export default {
      components: {
     PreviewBlog,
@@ -59,13 +61,18 @@ export default {
     editor: Editor
   },
   setup(){
+      let {storeError,storeData}=store();
+      let {error,fileUpload}=fileStorage();
       let title=ref("");
       let content=ref("");
       let url=ref(null);
       let create=ref(true);
+      let fileName=ref("");
+      let file=ref("");
       let uploadImage=(e)=>{
-          const file = e.target.files[0];
-          url.value=URL.createObjectURL(file);
+          file.value = e.target.files[0];
+          fileName.value=file.value.name;
+          url.value=URL.createObjectURL(file.value);
       }
       let showPreviewBlog=()=>{
           create.value=false;
@@ -80,7 +87,20 @@ export default {
       let hidePreviewBlog=()=>{
             create.value=true;
       }
-      return{uploadImage,url,buttonPlay,showPreviewBlog,title,content,url,buttonPlay,create,hidePreviewBlog}
+      let uploadBlog=async()=>{
+            let data={
+                title:title.value,
+                content:content.value,
+                image:fileName.value,
+                post_at:timestamp()
+            }
+            await storeData("blogs",data);
+            fileUpload("blogs",fileName.value,file.value);
+            title.value="";
+            content.value="";
+            url.value=""
+      }
+      return{uploadImage,url,buttonPlay,showPreviewBlog,title,content,url,buttonPlay,create,hidePreviewBlog,uploadBlog}
   }
 }
 </script>
