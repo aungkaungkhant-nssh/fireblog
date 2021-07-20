@@ -1,7 +1,6 @@
 <template>
  <div class="container-fluid showblog" v-if="blogs">
                 <div class="noe row" v-for="blog in blogs" :key="blog.id">
-                    <!-- <div class="noe g-0"> -->
                             <div class="col-md-12 col-lg-5">
                                 <img :src="blog.image" alt="" style="width:100%;height:100%">
                              </div> 
@@ -11,8 +10,7 @@
                                         <div v-html="blog.content"></div>
                                     </div>
                             </div> 
-                    <!-- </div> -->
-                   
+                
                 </div>
             
                 
@@ -30,7 +28,6 @@ setup(){
     let blogs=ref([]);
     onMounted(async()=>{
        await load('blogs');
-       console.log(data.value)
        blogs.value.push(...data.value.slice(1,3));
     })
     return {blogs,data}
