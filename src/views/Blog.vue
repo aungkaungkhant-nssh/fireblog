@@ -3,7 +3,7 @@
     <div class="container">
         <div class="row">
           <ToggleButton @toggle="toggle"></ToggleButton>
-          <div class="col-xl-3 col-md-6 col-lg-4">
+          <div class="col-xl-3 col-md-6 col-lg-4 mt-4" v-for="blog in blogs" :key="blog.id">
               <div class="card mb-3 blog-card">
                <transition name="fade">
                  <div v-if="showIcon" >
@@ -17,92 +17,10 @@
                </transition>
                 
                 
-                <img src="../assets/media.png" alt="" style="height:200px">
+                <img :src="blog.image" alt="" style="height:200px">
                 <div class="card-body">
-                  <h4>HTML Media Query Feature</h4>
-                  <p>Poste on:Today</p>
-                  <div style="margin-top:100px">
-                      <a href="#" class="go">View The Post</a>
-                      <span class="material-icons arrow">
-                          east
-                    </span>
-                  </div>
-                  
-                </div>
-              </div>
-          </div>
-         <div class="col-xl-3 col-md-6 col-lg-4">
-              <div class="card mb-3 blog-card">
-                <transition name="fade">
-                      <div v-if="showIcon" >
-                          <span class="material-icons trash">
-                            delete
-                          </span>
-                          <span class="material-icons edit">
-                            edit
-                          </span>
-                    </div>
-                </transition>
-              
-               
-                <img src="../assets/boot.jpeg" alt="" style="height:200px">
-                <div class="card-body">
-                  <h4>BootStrap Usage Of Feature</h4>
-                  <p>Poste on:Today</p>
-                  <div style="margin-top:100px">
-                      <a href="#" class="go">View The Post</a>
-                      <span class="material-icons arrow">
-                          east
-                    </span>
-                  </div>
-                  
-                </div>
-              </div>
-          </div>
-          <div class="col-xl-3 col-md-6 col-lg-4">
-              <div class="card mb-3 blog-card">
-                  <transition name="fade">
-                       <div v-if="showIcon">
-                          <span class="material-icons trash">
-                            delete
-                          </span>
-                          <span class="material-icons edit">
-                            edit
-                          </span>
-                      </div>
-                  </transition>
-                 
-                <img src="../assets/laravel.png" alt="" style="height:200px">
-                <div class="card-body">
-                  <h4>Laravel middleware Features</h4>
-                  <p>Poste on:Today</p>
-                  <div style="margin-top:100px">
-                      <a href="#" class="go">View The Post</a>
-                      <span class="material-icons arrow">
-                          east
-                    </span>
-                  </div>
-                  
-                </div>
-              </div>
-          </div>
-          <div class="col-xl-3 col-md-6 col-lg-4">
-              <div class="card mb-3 blog-card">
-                  <transition name="fade">
-                         <div v-if="showIcon">
-                            <span class="material-icons trash">
-                              delete
-                            </span>
-                            <span class="material-icons edit">
-                              edit
-                            </span>
-                         </div>
-                  </transition>
-                 
-                <img src="../assets/ract.png" alt="" style="height:200px">
-                <div class="card-body">
-                  <h4>React state usage dicuss</h4>
-                  <p>Poste on:Today</p>
+                  <h4>{{blog.title}}</h4>
+                  <p>Post on : {{blog.post_at.toDate().toDateString()}}</p>
                   <div style="margin-top:100px">
                       <a href="#" class="go">View The Post</a>
                       <span class="material-icons arrow">
@@ -123,16 +41,24 @@
 <script>
 import ToggleButton from '../components/ToggleButton'
 import { ref } from '@vue/reactivity'
+import userCollection from '../composable/userCollection'
+import { onMounted } from '@vue/runtime-core'
 
 export default {
   components: { ToggleButton },
     name: 'Blog',
  setup(){
+    let {error,data,load}=userCollection();
    let showIcon=ref(null);
    let toggle=(check)=>{
      showIcon.value=check;
    }
-   return{toggle,showIcon}
+   let blogs=ref([]);
+    onMounted(async()=>{
+       await load('blogs'); 
+       blogs.value.push(...data.value);
+    })
+   return{toggle,showIcon,blogs}
  }
 }
 </script>
