@@ -1,9 +1,9 @@
 <template>
- <div class="container welcomeblog" v-if="blogs">
-                <div class="first" v-for="blog in blogs" :key="blog.id">
-                    <div class="row g-0 d-flex " :class="{in:blog.title==='Laravel middleware'}">
-                             <div class="col-md-12 col-lg-5">
-                                <img :src="blog.image" alt="" style="width:100%">
+ <div class="container-fluid showblog" v-if="blogs">
+                <div class="noe row" v-for="blog in blogs" :key="blog.id">
+                    <!-- <div class="noe g-0"> -->
+                            <div class="col-md-12 col-lg-5">
+                                <img :src="blog.image" alt="" style="width:100%;height:100%">
                              </div> 
                             <div class=" col-md-12 intro col-lg-7">
                                     <div class="mb-3">
@@ -11,7 +11,7 @@
                                         <div v-html="blog.content"></div>
                                     </div>
                             </div> 
-                    </div>
+                    <!-- </div> -->
                    
                 </div>
             
@@ -29,9 +29,9 @@ setup(){
     let {error,data,load}=userCollection();
     let blogs=ref([]);
     onMounted(async()=>{
-    //    await load('blogs');
-    //    console.log(data.value)
-    //    blogs.value.push(...data.value.slice(1,3));
+       await load('blogs');
+       console.log(data.value)
+       blogs.value.push(...data.value.slice(1,3));
     })
     return {blogs,data}
 }
@@ -42,7 +42,14 @@ setup(){
 .second{
     height: 50vh;
 }
-.in{
-flex-direction: row-reverse;
+.noe{
+     display: flex  !important;
+    flex-direction: row important;
+    margin-top: 10px;
 }
+.noe:first-child{
+    display: flex  !important;
+    flex-direction: row-reverse !important;
+}
+
 </style>
