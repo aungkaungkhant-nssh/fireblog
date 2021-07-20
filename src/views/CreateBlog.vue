@@ -1,5 +1,6 @@
 <template>
   <div class="container createblog">
+       <div v-if="storeError">{{storeError}}</div>
         <div v-if="create">
            <form class="row" @submit.prevent="uploadBlog">
                 <div class="col-md-12 col-lg-12 col-xl-3">
@@ -53,7 +54,7 @@ import { ref } from '@vue/reactivity'
 import { computed } from '@vue/runtime-core'
 import { storage, timestamp } from '../firebase/config'
 import store from '../composable/store'
-import fileStorage from '../composable/fileStorage'
+// import fileStorage from '../composable/fileStorage'
 export default {
      components: {
     PreviewBlog,
@@ -62,13 +63,14 @@ export default {
   },
   setup(){
       let {storeError,storeData}=store();
-      let {error,fileUpload}=fileStorage();
+    //   let {error,fileUpload}=fileStorage();
       let title=ref("");
       let content=ref("");
       let url=ref(null);
       let create=ref(true);
       let fileName=ref("");
       let file=ref("");
+      let downloadURL=ref("");
       let uploadImage=(e)=>{
           file.value = e.target.files[0];
           fileName.value=file.value.name;
@@ -88,19 +90,33 @@ export default {
             create.value=true;
       }
       let uploadBlog=async()=>{
-            let data={
-                title:title.value,
-                content:content.value,
-                image:fileName.value,
-                post_at:timestamp()
-            }
-            await storeData("blogs",data);
-            fileUpload("blogs",fileName.value,file.value);
-            title.value="";
-            content.value="";
-            url.value=""
+         let storageRef=storage.ref();
+            const docRef=storageRef.child(`blogs/${fileName.value}`)
+             docRef.put(file.value).on(
+                 "state_changed",(snapshot)=>{
+                    //  console.log(snapshot)
+                 },
+                 (err)=>{
+                     console.log(err);
+                 },async()=>{
+                     downloadURL.value=await docRef.getDownloadURL();
+                     let data={
+                        title:title.value,
+                        content:content.value,
+                        image:downloadURL.value,
+                        post_at:timestamp()
+                    }
+                        await storeData("blogs",data);
+                          title.value="";
+                          content.value="";
+                          url.value=""
+                    
+                     
+                 }
+             );
+         
       }
-      return{uploadImage,url,buttonPlay,showPreviewBlog,title,content,url,buttonPlay,create,hidePreviewBlog,uploadBlog}
+      return{uploadImage,url,buttonPlay,showPreviewBlog,title,content,url,buttonPlay,create,hidePreviewBlog,uploadBlog,storeError}
   }
 }
 </script>
@@ -134,3 +150,5 @@ label{
 }
 
 </style>
+
+

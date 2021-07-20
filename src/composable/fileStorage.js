@@ -5,8 +5,20 @@ let fileStorage=()=>{
     let error=ref("");
     let fileUpload=(folderName,fileName,file)=>{
         try{
-            let storageRef=storage.ref(`${folderName}/${fileName}`);
-            storageRef.put(file);
+            let storageRef=storage.ref();
+            const docRef=storageRef.child(`${folderName}/${fileName}`)
+             docRef.put(file).on(
+                 "state_changed",(snapshot)=>{
+                     console.log(snapshot)
+                 },
+                 (err)=>{
+                     console.log(err);
+                 }
+                //  ,async()=>{
+                //      downloadURL.value=await docRef.getDownloadURL();
+                //  }
+             );
+             return docRef;
         }catch(err){
             error.value=err.message;
             console.log(error.value);

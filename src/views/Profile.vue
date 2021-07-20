@@ -44,7 +44,7 @@ import userCollection from "../composable/userCollection"
 export default {
     setup(){
         let {user}=getUser();
-        let {error,usersData,load}=userCollection();
+        let {error,data,load}=userCollection();
         let first=ref("");
         let last=ref("");
         let name=ref("");
@@ -53,8 +53,8 @@ export default {
         let lastName=ref("");
 
          onMounted(async()=>{
-            await load();
-            usersData.value.forEach((u)=>{
+            await load("users");
+            data.value.forEach((u)=>{
                if(u.name===user.value.displayName){
                    firstName.value=u.first;
                    lastName.value=u.last;

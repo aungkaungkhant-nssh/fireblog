@@ -19,8 +19,6 @@
                             <li class="nav-item" v-if="!user">
                                  <router-link class="nav-link h5 text-dark" :to="{name:'LoginAndRegister'}" >Login/Register</router-link>
                              </li>
-                                <!-- <h5 class="nav-link" @click="logout">Logout</h5> -->
-                             
                     </ul>
                      <Pflog :user="user"  v-if="user" class="profile"></Pflog>
                 </div>
@@ -68,7 +66,7 @@ import userCollection from "../composable/userCollection"
 export default {
   components: { Pflog },
     setup(props,context){
-         let {error,usersData,load}=userCollection();
+         let {error,data,load}=userCollection();
         let mobileWidth=ref(null)
         let mobileNav=ref(null);
         let mobile=ref(null);
@@ -79,7 +77,7 @@ export default {
         onMounted(async()=>{
           window.addEventListener("resize",checkScreen);
           checkScreen()
-          await load();       
+          await load("users");       
         })
         let checkScreen=()=>{
             mobileWidth.value=window.innerWidth;
@@ -115,7 +113,7 @@ export default {
         }
         
         
-        return{mobile,mobileNav,toggleMenu,close,open,closeMenu,logout,user,usersData}
+        return{mobile,mobileNav,toggleMenu,close,open,closeMenu,logout,user,data}
     }
 }
 </script>

@@ -2,12 +2,12 @@ import { ref } from "vue";
 import { db } from "../firebase/config"
 
 let userCollection=()=>{
-    let usersData=ref([]);
+    let data=ref([]);
     let error=ref(null);
-    let load=async()=>{
+    let load=async(doc)=>{
         try{
-            let res=await db.collection("users").get();
-            usersData.value=res.docs.map((doc)=>{
+            let res=await db.collection(doc).get();
+            data.value=res.docs.map((doc)=>{
                 return {id:doc.id,...doc.data()}
             })
         }catch(err){
@@ -15,7 +15,7 @@ let userCollection=()=>{
         }
     }
    
-    return {error,usersData,load}
+    return {error,data,load}
 }
 
 export default userCollection;
