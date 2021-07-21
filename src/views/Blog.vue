@@ -1,8 +1,8 @@
 <template>
   <div class="container-fluid blog-card pt-5 pb-5">
-    <div class="container">
+    <div class="container" v-if="blogs.length>0">
         <div class="row">
-          <ToggleButton @toggle="toggle"></ToggleButton>
+          <ToggleButton @toggle="toggle" v-if="user && user.email==='akk1223@gmail.com'"></ToggleButton>
           <div class="col-xl-3 col-md-6 col-lg-4 mt-4" v-for="blog in blogs" :key="blog.id">
               <div class="card mb-3 blog-card">
                <transition name="fade">
@@ -15,14 +15,13 @@
                   </span>
                 </div>
                </transition>
-                
-                
+                     
                 <img :src="blog.image" alt="" style="height:200px">
                 <div class="card-body">
                   <h4>{{blog.title}}</h4>
                   <p>Post on : {{blog.post_at.toDate().toDateString()}}</p>
                   <div style="margin-top:100px">
-                      <a href="#" class="go">View The Post</a>
+                      <router-link :to="{name:'ViewPost',params:{id:blog.id}}" class="go">View The Post</router-link>
                       <span class="material-icons arrow">
                           east
                     </span>
@@ -34,7 +33,6 @@
         </div>
         
     </div>
-  
   </div>
 </template>
 
@@ -43,22 +41,24 @@ import ToggleButton from '../components/ToggleButton'
 import { ref } from '@vue/reactivity'
 import userCollection from '../composable/userCollection'
 import { onMounted } from '@vue/runtime-core'
-
+import getUser from '../composable/getUser'
 export default {
   components: { ToggleButton },
     name: 'Blog',
  setup(){
     let {error,data,load}=userCollection();
+    let {user}=getUser();
    let showIcon=ref(null);
    let toggle=(check)=>{
      showIcon.value=check;
    }
    let blogs=ref([]);
     onMounted(async()=>{
-       await load('blogs'); 
+        await load("users"); 
+        await load('blogs'); 
        blogs.value.push(...data.value);
     })
-   return{toggle,showIcon,blogs}
+   return{toggle,showIcon,blogs,user}
  }
 }
 </script>

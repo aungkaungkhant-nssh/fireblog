@@ -10,7 +10,7 @@
                   <h4>{{blog.title}}</h4>
                   <p>Post on : {{blog.post_at.toDate().toDateString()}}</p>
                   <div style="margin-top:100px">
-                      <a href="#" class="go">View The Post</a>
+                      <router-link :to="{name:'ViewPost',params:{id:blog.id}}" class="go">View The Post</router-link>
                       <span class="material-icons arrow">
                           east
                     </span>

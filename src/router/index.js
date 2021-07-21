@@ -5,7 +5,7 @@ import LoginAndRegister from '../views/LoginAndRegister.vue'
 import Profile from '../views/Profile.vue'
 import ResetPassword from '../views/ResetPassword'
 import CreateBlog from '../views/CreateBlog'
-
+import ViewPost from '../views/ViewPost'
 const routes = [
   {
     path: '/',
@@ -36,6 +36,12 @@ const routes = [
     path:'/createblog',
     name:"CreateBlog",
     component:CreateBlog
+  },
+  {
+    path:'/viewpost/:id',
+    name:"ViewPost",
+    component:ViewPost,
+    props:true
   }
 ]
 
