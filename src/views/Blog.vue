@@ -1,9 +1,9 @@
 <template>
   <div class="container-fluid blog-card pt-5 pb-5">
-    <div class="container" v-if="blogs.length>0">
+    <div class="container" v-if="blogdata.length>0">
         <div class="row">
           <ToggleButton @toggle="toggle" v-if="user && user.email==='akk1223@gmail.com'"></ToggleButton>
-          <div class="col-xl-3 col-md-6 col-lg-4 mt-4" v-for="blog in blogs" :key="blog.id">
+          <div class="col-xl-3 col-md-6 col-lg-4 mt-4" v-for="blog in blogdata" :key="blog.id">
               <div class="card mb-3 blog-card">
                <transition name="fade">
                  <div v-if="showIcon" >
@@ -33,22 +33,26 @@
         
     </div>
   </div>
+
 </template>
 
 <script>
 import ToggleButton from '../components/ToggleButton'
 import { ref } from '@vue/reactivity'
 import userCollection from '../composable/userCollection'
+import blogCollection from '../composable/blogCollection'
 import { onMounted } from '@vue/runtime-core'
 import getUser from '../composable/getUser'
 import { db, storage } from '../firebase/config'
 import filedelete from '../composable/filedelete'
 import deleteDoc from  '../composable/deleteDoc'
+
 export default {
   components: { ToggleButton },
     name: 'Blog',
  setup(){
     let {error,data,load}=userCollection();
+    let {blogerror,blogdata,blogload}=blogCollection();
     let {imageFileDelete}=filedelete();
     let {trashDoc}=deleteDoc();
     let {user}=getUser();
@@ -60,16 +64,16 @@ export default {
    let blogs=ref([]);
     onMounted(async()=>{
         await load("users"); 
-        await load('blogs'); 
-       blogs.value.push(...data.value);
+        await blogload("blogs");
     })
     let deletePost=async(id)=>{
         let res=await db.collection("blogs").doc(id).get();
         image.value=res.data().imagename;
         await trashDoc("blogs",id);
         await imageFileDelete(image.value);
+   
     }
-   return{toggle,showIcon,blogs,user,deletePost}
+   return{toggle,showIcon,blogs,user,deletePost,blogdata}
  }
 }
 
@@ -78,7 +82,6 @@ export default {
 <style>
 .fake{
   width: 100%;
-  /* background-color: red; */
 }
 .card{
   position: relative;
