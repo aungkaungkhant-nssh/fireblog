@@ -7,7 +7,7 @@
               <div class="card mb-3 blog-card">
                <transition name="fade">
                  <div v-if="showIcon" >
-                    <span class="material-icons trash">
+                    <span class="material-icons trash" @click="deletePost(blog.id)">
                     delete
                     </span>
                   <span class="material-icons edit">
@@ -26,7 +26,6 @@
                           east
                     </span>
                   </div>
-                  
                 </div>
               </div>
           </div>
@@ -42,13 +41,19 @@ import { ref } from '@vue/reactivity'
 import userCollection from '../composable/userCollection'
 import { onMounted } from '@vue/runtime-core'
 import getUser from '../composable/getUser'
+import { db, storage } from '../firebase/config'
+import filedelete from '../composable/filedelete'
+import deleteDoc from  '../composable/deleteDoc'
 export default {
   components: { ToggleButton },
     name: 'Blog',
  setup(){
     let {error,data,load}=userCollection();
+    let {imageFileDelete}=filedelete();
+    let {trashDoc}=deleteDoc();
     let {user}=getUser();
    let showIcon=ref(null);
+   let image=ref("");
    let toggle=(check)=>{
      showIcon.value=check;
    }
@@ -58,9 +63,16 @@ export default {
         await load('blogs'); 
        blogs.value.push(...data.value);
     })
-   return{toggle,showIcon,blogs,user}
+    let deletePost=async(id)=>{
+        let res=await db.collection("blogs").doc(id).get();
+        image.value=res.data().imagename;
+        await trashDoc("blogs",id);
+        await imageFileDelete(image.value);
+    }
+   return{toggle,showIcon,blogs,user,deletePost}
  }
 }
+
 </script>
 
 <style>

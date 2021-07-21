@@ -90,7 +90,7 @@ export default {
             create.value=true;
       }
       let uploadBlog=async()=>{
-         let storageRef=storage.ref();
+            let storageRef=storage.ref();
             const docRef=storageRef.child(`blogs/${fileName.value}`)
              docRef.put(file.value).on(
                  "state_changed",(snapshot)=>{
@@ -104,6 +104,7 @@ export default {
                         title:title.value,
                         content:content.value,
                         image:downloadURL.value,
+                        imagename:fileName.value,
                         post_at:timestamp()
                     }
                         await storeData("blogs",data);
