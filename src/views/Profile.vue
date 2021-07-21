@@ -76,8 +76,8 @@ export default {
     color:#ffff;
 }
 .profile .card{
-    height: 43rem;
-    /* overflow-y: scroll; */
+    min-height: 43rem;
+    overflow-y: scroll;
 }
 .profile h1{
     color:#0984e3;

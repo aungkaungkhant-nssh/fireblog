@@ -7,10 +7,10 @@
               <div class="card mb-3 blog-card">
                <transition name="fade">
                  <div v-if="showIcon" >
-                    <span class="material-icons trash" @click="deletePost(blog.id)">
+                    <span class="material-icons trash" @click="deleteBlog(blog.id)">
                     delete
                     </span>
-                  <span class="material-icons edit">
+                  <span class="material-icons edit" @click="editBlog(blog.id)">
                     edit
                   </span>
                 </div>
@@ -43,15 +43,16 @@ import userCollection from '../composable/userCollection'
 import blogCollection from '../composable/blogCollection'
 import { onMounted } from '@vue/runtime-core'
 import getUser from '../composable/getUser'
-import { db, storage } from '../firebase/config'
+import { db} from '../firebase/config'
 import filedelete from '../composable/filedelete'
 import deleteDoc from  '../composable/deleteDoc'
-
+import {useRouter} from 'vue-router'
 export default {
   components: { ToggleButton },
     name: 'Blog',
  setup(){
     let {error,data,load}=userCollection();
+    let router=useRouter();
     let {blogerror,blogdata,blogload}=blogCollection();
     let {imageFileDelete}=filedelete();
     let {trashDoc}=deleteDoc();
@@ -66,14 +67,17 @@ export default {
         await load("users"); 
         await blogload("blogs");
     })
-    let deletePost=async(id)=>{
+    let deleteBlog=async(id)=>{
         let res=await db.collection("blogs").doc(id).get();
         image.value=res.data().imagename;
         await trashDoc("blogs",id);
         await imageFileDelete(image.value);
    
     }
-   return{toggle,showIcon,blogs,user,deletePost,blogdata}
+    let editBlog=(id)=>{
+        router.push("/editblog/"+id)
+    }
+   return{toggle,showIcon,blogs,user,deleteBlog,blogdata,editBlog}
  }
 }
 

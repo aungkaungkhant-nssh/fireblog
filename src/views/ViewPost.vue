@@ -9,8 +9,8 @@
                     <p class="text-center">Post on : {{blog.post_at.toDate().toDateString()}}</p>
                 </div>
                 <div class="card-body">
-                    <div style="margin-left:100px">
-                         <img :src="blog.image" alt="" style="width:80%;height:200px">  
+                    <div style="">
+                         <img :src="blog.image" alt="" style="width:100%;height:200px">  
                     </div>
                      <div v-html="blog.content" class="mt-5 viewpost"></div>
                 </div>
