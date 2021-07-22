@@ -38,11 +38,13 @@
 </template>
 
 <script>
-import { computed, onMounted, ref } from '@vue/runtime-core';
+import { computed, onMounted, ref, watch } from '@vue/runtime-core';
 import getUser from '../composable/getUser'
 import userCollection from "../composable/userCollection"
+import {useRouter} from 'vue-router'
 export default {
     setup(){
+        let router=useRouter();
         let {user}=getUser();
         let {error,data,load}=userCollection();
         let first=ref("");
@@ -51,7 +53,11 @@ export default {
         let email=ref("");
         let firstName=ref("");
         let lastName=ref("");
-
+        watch(user,()=>{
+            if(!user.value){
+                router.push("/");
+            }
+        })
          onMounted(async()=>{
             await load("users");
             data.value.forEach((u)=>{

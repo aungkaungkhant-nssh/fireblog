@@ -7,6 +7,7 @@ import ResetPassword from '../views/ResetPassword'
 import CreateBlog from '../views/CreateBlog'
 import ViewPost from '../views/ViewPost'
 import EditBlog from '../views/EditBlog'
+import {auth} from '../firebase/config'
 const routes = [
   {
     path: '/',
@@ -26,7 +27,15 @@ const routes = [
   {
     path:"/profile",
     name:'Profile',
-    component:Profile
+    component:Profile,
+    beforeEnter(to,from,next){
+      let user=auth.currentUser;
+      if(user){
+        next()
+      }else{
+        next({name:"Blog"});
+      }
+    }
   },
   {
     path:'/resetpassword',
