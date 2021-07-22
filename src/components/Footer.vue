@@ -25,16 +25,16 @@
                     <div class="">
                         <ul class="nav d-flex  flex-row flex-md-column  justify-content-center">
                                 <li class="nav-item" >
-                                    <a class="nav-link h6 text-white"  href="#">HOME</a>
+                                     <router-link class="nav-link h5 text-white" :to="{name:'Home'}">Home</router-link>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link h6 text-white" href="#">BLOGS</a>
+                                   <router-link class="nav-link h5 text-white" :to="{name:'Blog'}">BLOGS</router-link>
+                                </li>
+                                <li class="nav-item" v-if="user && user.email==='akk1223@gmail.com'">
+                                <router-link class="nav-link h5 text-white" :to="{name:'CreateBlog'}">Create Blogs</router-link>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link h6 text-white" href="#">CREATE BLOG</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link h6 text-white" href="#">LOING/REGISTER</a>
+                                    <router-link class="nav-link h5 text-white" :to="{name:'LoginAndRegister'}" >Login/Register</router-link>
                                 </li>
                         </ul>
                     </div>   
@@ -49,8 +49,18 @@
 </template>
 
 <script>
+import { onMounted } from '@vue/runtime-core';
+import getUser from '../composable/getUser'
 export default {
-
+    setup(){
+         let {user}=getUser();
+        onMounted(async()=>{
+          window.addEventListener("resize",checkScreen);
+          checkScreen()
+          await load("users");       
+        })
+        return{user}
+    }
 }
 </script>
 
