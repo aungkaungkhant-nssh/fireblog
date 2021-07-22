@@ -22,7 +22,15 @@ const routes = [
   {
     path:"/loginAndregister",
     name:'LoginAndRegister',
-    component:LoginAndRegister
+    component:LoginAndRegister,
+    beforeEnter(to,from,next){
+      let user=auth.currentUser;
+      if(user){
+        next("/")
+      }else{
+        next()
+      }
+    }
   },
   {
     path:"/profile",
